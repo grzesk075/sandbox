@@ -7,6 +7,6 @@ public class App
 {
     public static void main( String[] args )
     {
-        System.out.println( "Hello World with git!" );
+        System.out.println( "Hello World with github!" );
     }
 }
