@@ -1,5 +1,11 @@
 package pl.grzesk075.sandbox.java8;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.Charset;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.Month;
@@ -205,6 +211,10 @@ public class Java8Tutorial
             Kompilator javac ma opcję -profile, która pozwala na kompilację z ograniczonym zestawem klas, celem uruchamiania programu na urządzeniach o ograniczonych zasobach. 
             */
         }
+        catch( IOException | NullPointerException e) //multicatch since java7 (one can't be superclass of the other)
+        {
+        	e.printStackTrace( System.err);
+        }
         catch( Exception e)
         {
             e.printStackTrace( System.out);
@@ -248,5 +258,19 @@ public class Java8Tutorial
     public Long instancePow( Integer i)
     {
         return 1L * i * i;
+    }
+    
+    public static String getFirstLineOfFile( File f) {
+    	//try-with-resources - opened resource, which implements AutoClosable, are closed after statement, since java7
+    	try ( BufferedReader r = new BufferedReader( new InputStreamReader(new FileInputStream( f), Charset.forName( "UTF-8"))))
+        {
+        	return r.readLine();
+        }
+    	catch (Exception e)
+    	{
+			e.printStackTrace();
+		}
+    	
+		return null;
     }
 }
