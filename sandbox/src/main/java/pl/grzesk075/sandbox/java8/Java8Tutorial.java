@@ -33,8 +33,10 @@ import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 
 /**
- * Test nowości z Java 8.
- * @author grzesk
+ * Sandbox for new features of Java 8.
+ * @implSpec <b>html bold markup</b>
+ * @implNote {@literal Characters like '<' and '>' should be inside {@literal} to avoid HTML markup and nested javadoc tag formatting issues (since 1.5).}
+ * @author Grzegorz Kuprianowicz <grzesk075@gmail.com>
  */
 public class Java8Tutorial
 {
