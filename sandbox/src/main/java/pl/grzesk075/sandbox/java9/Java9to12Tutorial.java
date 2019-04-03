@@ -10,7 +10,7 @@ public class Java9to12Tutorial {
     
     public static void main(String[] args) {
         
-        System.out.println("New major features in JAVA versions 9 to 12 summary.")
+        System.out.println("New major features in JAVA versions 9 to 12 summary.");
         
         /*
         1. Java Platform Module System (JSR 376 introduced in JAVA 9).
