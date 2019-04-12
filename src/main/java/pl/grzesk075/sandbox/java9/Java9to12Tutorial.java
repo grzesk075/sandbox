@@ -21,7 +21,7 @@ public class Java9to12Tutorial {
         Using module system is optional. You can use only packages to fulfill structured paradigm.
         To use modules in your application create module-info.java file in each module directory.
         This files contains packages list to assign packages as public API of this module for another modules.
-        'module-info.java' file contains also depandencies to another modules. (This duplicates maven functionality.)
+        'module-info.java' file contains also dependencies to another modules. (This duplicates maven functionality.)
         JDK is now divided into modules e.g. 'java.base' containing package 'java.lang'
         and other base packages.
         Modules starting with 'java' are considered as public API of java.
@@ -34,7 +34,7 @@ public class Java9to12Tutorial {
         Jmod format is added as similar to jar, but it can contain native code and config liles.
         Jmod tool supports jmod format.
         New URI format for modules and classes in runtime image.
-        Endorsed and exrtension mechanisms are removed.
+        Endorsed and extension mechanisms are removed.
         Rt.jar and tools.jar are removed, new folder structure of jdk/sdk is introduced.
         JRE is not installed as a part of jdk/sdk.
         */
@@ -64,7 +64,7 @@ public class Java9to12Tutorial {
         */
         
         /*
-        6. Maintanance like deprecation of Applets and JavaFX, upgrades for Unicode 11 and HTTP 2,
+        6. Maintenance like deprecation of Applets and JavaFX, upgrades for Unicode 11 and HTTP 2,
         javadoc with HTML 5 and search util, improved G1 garbage collector (doesn't stop application to clean).
         */
         
