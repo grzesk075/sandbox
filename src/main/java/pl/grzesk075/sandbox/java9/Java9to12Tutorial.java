@@ -1,5 +1,7 @@
 package pl.grzesk075.sandbox.java9;
 
+import java.util.Set;
+
 /**
  * New major features in JAVA versions 9 to 12 summary.
  * Should be run on JAVA 12 or above.
@@ -62,14 +64,14 @@ public class Java9to12Tutorial {
         */
         
         /*
-        6. Maintanance like deprecation of Applets and JavaFX, ppgrades for Unicode 11 and HTTP 2,
+        6. Maintanance like deprecation of Applets and JavaFX, upgrades for Unicode 11 and HTTP 2,
         javadoc with HTML 5 and search util, improved G1 garbage collector (doesn't stop application to clean).
         */
         
         /*
         7. Convenience Factory Methods for Collections (JAVA 9 JEP 269).
-        Set<String> alphabet = Set.of("a", "b", "c");
         */
+        Set<String> alphabet = Set.of("a", "b", "c");
         
         /*
         8. IntStream.iterate()
