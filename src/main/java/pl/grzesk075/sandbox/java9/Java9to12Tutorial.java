@@ -31,9 +31,9 @@ public class Java9to12Tutorial {
         where modules are applied.
         You can use jlink tool to generate your own runtime environment only with
         necessary things. So compact profiles are obsolete now.
-        Jmod format is added as similar to jar, but it can contain native code and config liles.
+        Jmod format is added as similar to jar, but it can contain native code and config files.
         Jmod tool supports jmod format.
-        New URI format for modules and classes in runtime image.
+        There is new URI format for modules and classes in runtime image.
         Endorsed and extension mechanisms are removed.
         Rt.jar and tools.jar are removed, new folder structure of jdk/sdk is introduced.
         JRE is not installed as a part of jdk/sdk.
