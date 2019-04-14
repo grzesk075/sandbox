@@ -11,4 +11,6 @@ module pl.grzesk075.sandbox {
 
     //provides java.nio.file.spi.FileSystemProvider with jdk.internal.jrtfs.JrtFileSystemProvider;
     //provides implementation of this interface
+
+    //opens java.somepackage; runtime dependency only
 }
