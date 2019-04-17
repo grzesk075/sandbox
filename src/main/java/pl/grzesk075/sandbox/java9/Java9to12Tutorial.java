@@ -1,5 +1,7 @@
 package pl.grzesk075.sandbox.java9;
 
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -62,7 +64,15 @@ public class Java9to12Tutorial {
         Complete the removal, begun in Java SE 8, of the underscore from the set of legal identifier names.
         Add support for private interface methods.
         */
-        
+        Card<String> myCard = new Card<>() { //diamond with anonymous classes
+
+            @Override
+            public String get() {
+                return "my card";
+            }
+        };
+        System.out.println("card vendor: " + myCard.getDescription() + ", get(): " + myCard.get());
+
         /*
         6. Maintenance like deprecation of Applets and JavaFX, upgrades for Unicode 11 and HTTP 2,
         javadoc with HTML 5 and search util, improved G1 garbage collector (doesn't stop application to clean).
@@ -72,6 +82,9 @@ public class Java9to12Tutorial {
         7. Convenience Factory Methods for Collections (JAVA 9 JEP 269).
         */
         Set<String> alphabet = Set.of("a", "b", "c");
+        List immutableList = List.of();
+        Map<Integer, String> immutableMap = Map.of(1, "one", 2, "two", 3, "three");
+
         
         /*
         8. IntStream.iterate()
@@ -80,5 +93,27 @@ public class Java9to12Tutorial {
         /*
         9. Optional.stream()
         */
+    }
+
+    public interface Card<T> { //inner interface is static by default
+
+        long dummieNumber = getDummieNumber(); // field is public static
+
+        T get();
+
+        default String getDescription() {  // method is public (and abstract, when not default)
+
+            return getVendor();
+        }
+
+        private String getVendor() { //to use in default methods
+
+            return "company";
+        }
+
+        private static long getDummieNumber() {
+
+            return 129374623L;
+        }
     }
 }
