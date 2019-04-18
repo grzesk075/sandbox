@@ -58,20 +58,46 @@ public class Java9to12Tutorial {
         
         /*
         5. Minor language changes as part of Coin Project (JAVA 9).
-        Allow @SafeVargs on private instance methods.
+        Allow @SafeVarags on private instance methods.
         Allow effectively final variables to be used as resources in the try-with-resources statement.
         Allow the diamond with anonymous classes if the argument type of the inferred type is denotable.
         Complete the removal, begun in Java SE 8, of the underscore from the set of legal identifier names.
         Add support for private interface methods.
         */
-        Card<String> myCard = new Card<>() { //diamond with anonymous classes
+        Card<String> myCard = new Card<>() { //diamond with anonymous classes become to be enabled
 
             @Override
             public String get() {
                 return "my card";
             }
+
+            @SafeVarargs
+            private void display(List<String>... products) {
+                for (List<String> product : products) {
+                    for (String str : product)
+                        System.out.println(str);
+                }
+                //final List<String>[] lists = new List<String>[5]; //generic array creation - compiler reported error
+                final List[] lists = new List[5]; //this is created and information about type is lost
+            }
+
+            //instead of new T[] {args} compiler can do only new Object[] {args}
+            //compiler warn against possible exception in runtime
+            //this example is safe - iteration over array only
+            @SafeVarargs
+            private final <T> void foo(T... args) {
+                for (T x : args) {
+                    // do stuff with x
+                }
+            }
+
+            //this is really unsafe operation new Object[] {args} will be returned
+            private <T> T[] asArray(T... args) {
+                return args;
+            }
         };
-        System.out.println("card vendor: " + myCard.getDescription() + ", get(): " + myCard.get());
+        System.out.println("card vendor: " + myCard.getDescription() + ", get(): " + myCard.get() +
+                ", dummieNumber: " + Card.dummieNumber);
 
         /*
         6. Maintenance like deprecation of Applets and JavaFX, upgrades for Unicode 11 and HTTP 2,
@@ -95,7 +121,7 @@ public class Java9to12Tutorial {
         */
     }
 
-    public interface Card<T> { //inner interface is static by default
+    public interface Card<T> { //inner interface is static by default (every interface is also abstract)
 
         long dummieNumber = getDummieNumber(); // field is public static
 
