@@ -1,8 +1,17 @@
 package pl.grzesk075.sandbox.java9;
 
+import java.io.Closeable;
+import java.io.IOException;
+import java.time.Duration;
+import java.time.Instant;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 /**
  * New major features in JAVA versions 9 to 12 summary.
@@ -99,6 +108,13 @@ public class Java9to12Tutorial {
         System.out.println("card vendor: " + myCard.getDescription() + ", get(): " + myCard.get() +
                 ", dummieNumber: " + Card.dummieNumber);
 
+        Closeable closable = () -> System.out.println("Closing my closable."); //one method to override
+        try (closable) {
+            //
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         /*
         6. Maintenance like deprecation of Applets and JavaFX, upgrades for Unicode 11 and HTTP 2,
         javadoc with HTML 5 and search util, improved G1 garbage collector (doesn't stop application to clean).
@@ -115,10 +131,44 @@ public class Java9to12Tutorial {
         /*
         8. IntStream.iterate()
         */
-        
+        IntStream.iterate(0, i -> i < 10, i -> i + 2).forEach(System.out::println);
+
         /*
         9. Optional.stream()
         */
+        List<Optional<String>> listOfOptionals = Arrays.asList(Optional.empty(), Optional.of("Foo"),
+                Optional.empty(), Optional.of("Bar"));
+        List<String> filteredList = listOfOptionals.stream()
+                .flatMap(Optional::stream) //each optional produces stream (empty or one element), flatMap concatenates results
+                .collect(Collectors.toList());
+
+        final Stream<Object> emptyStream = Optional.empty().stream();
+        final Stream<String> oneElementStream = Optional.of("elem").stream();
+        Stream<String> emptyStream1 = Stream.empty();
+        IntStream.range(1, 10).average().ifPresent(System.out::println);
+
+        /*
+        10. OS process API.
+        Getting info and destroying subprocesses.
+        */
+        ProcessHandle currentProcess = ProcessHandle.current();
+        System.out.println("Current Process Id: = " + currentProcess.pid());
+
+        ProcessHandle.Info procInfo = currentProcess.info();
+        Optional<String[]> arguments = procInfo.arguments();
+        Optional<String> cmd = procInfo.commandLine();
+        Optional<Instant> startTime = procInfo.startInstant();
+        Optional<Duration> cpuUsage = procInfo.totalCpuDuration();
+
+        /*
+        11. Common tool log system. Examples under
+        java -Xlog:help
+        */
+
+        /*
+        12. New HttpRequest builder.
+        */
+
     }
 
     public interface Card<T> { //inner interface is static by default (every interface is also abstract)
