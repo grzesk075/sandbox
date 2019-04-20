@@ -2,6 +2,11 @@ package pl.grzesk075.sandbox.java9;
 
 import java.io.Closeable;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.Arrays;
@@ -16,13 +21,13 @@ import java.util.stream.Stream;
 /**
  * New major features in JAVA versions 9 to 12 summary.
  * Should be run on JAVA 12 or above.
- * 
+ *
  * @author Grzegorz Kuprianowicz <grzesk075@gmail.com>
  */
 public class Java9to12Tutorial {
-    
+
     public static void main(String[] args) {
-        
+
         System.out.println("New major features in JAVA versions 9 to 12 summary.");
         
         /*
@@ -169,9 +174,29 @@ public class Java9to12Tutorial {
         */
 
         /*
-        12. New HttpRequest builder.
+        12. New HTTP client.
         */
-
+        try {
+            final HttpRequest request = HttpRequest.newBuilder(new URI("https://postman-echo.com/get"))
+                    .timeout(Duration.ofSeconds(20))
+                    .header("myname", "myvalue")
+                    .GET()
+                    .build();
+            final HttpClient client = HttpClient.newBuilder()
+                    .connectTimeout(Duration.ofSeconds(30))
+                    .build();
+            //synchronously
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            System.out.println(response.statusCode());
+            System.out.println(response.body());
+            //asynchronously
+            client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
+                    .thenApply(HttpResponse::body)
+                    .thenAccept(System.out::println);
+            Thread.sleep(2000);
+        } catch (URISyntaxException | IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     public interface Card<T> { //inner interface is static by default (every interface is also abstract)
