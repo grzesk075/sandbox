@@ -23,20 +23,15 @@ public class BinaryGap {
         public int solution(int N) {
         
             String binaryString = Integer.toBinaryString(N);
-            int first1 = binaryString.indexOf('1');
-            int last1 = binaryString.lastIndexOf('1');
-            if(first1 < 0 || first1 == last1) {
-                return 0;
-            }
-            
-            int maxGap = 0, gap = 0;
-            String truncatedBinaryString = binaryString.substring(first1, last1 + 1);
-            for(int i = 0; i < truncatedBinaryString.length(); i++) {
+
+            int maxGap = 0;
+            int gap = 0;
+            for (int i = 0; i < binaryString.length(); i++) {
                 
-                if(truncatedBinaryString.charAt(i) == '0') {
+                if (binaryString.charAt(i) == '0') {
                     gap++;
                 } else {
-                    if(gap > maxGap) {
+                    if (gap > maxGap) {
                         maxGap = gap;
                     }
                     gap = 0;
