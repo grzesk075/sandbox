@@ -12,7 +12,9 @@ public class BinaryGapTest {
     public void shouldCalculateGap() {
         
         Solution solution = new BinaryGap().new Solution();
-        
+
+        assertEquals(0, solution.solution(0));  // out of scope
+
         assertEquals(0, solution.solution(1));
         assertEquals(0, solution.solution(2));
         assertEquals(0, solution.solution(3));
