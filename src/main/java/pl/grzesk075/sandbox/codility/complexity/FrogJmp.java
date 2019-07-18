@@ -5,10 +5,10 @@ package pl.grzesk075.sandbox.codility.complexity;
  */
 public class FrogJmp {
     class Solution {
-        public int solution(int X, int Y, int K) {
+        public int solution(int X, int Y, int D) {
             final int distance = Y - X;
-            final int jumpsFloor = distance / K;
-            final int jumpsRest = distance % K;
+            final int jumpsFloor = distance / D;
+            final int jumpsRest = distance % D;
             final int jumps = jumpsRest == 0 ? jumpsFloor : jumpsFloor + 1;
             return jumps;
         }
