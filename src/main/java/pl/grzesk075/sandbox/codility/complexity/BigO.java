@@ -12,7 +12,7 @@ package pl.grzesk075.sandbox.codility.complexity;
  * O(n log n)
  * O(n^2)       quadratic           for i in range(n): for j in range(n): a *= j
  * O(n!)        factorial
- * O(2^n)       expotential
+ * O(2^n)       exponential
  *
  * Space complexity depends of number of variables to be declared (stack in case of recursion and other memory as well).
  * O(1) is for constant number of variables.
