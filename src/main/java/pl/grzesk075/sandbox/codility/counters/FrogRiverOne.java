@@ -1,4 +1,4 @@
-package pl.grzesk075.sandbox.codility.conters;
+package pl.grzesk075.sandbox.codility.counters;
 
 /**
  * Find the earliest time when a frog can jump to the other side of a river.

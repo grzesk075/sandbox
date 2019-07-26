@@ -1,4 +1,4 @@
-package pl.grzesk075.sandbox.codility.conters;
+package pl.grzesk075.sandbox.codility.counters;
 
 /**
  * Check whether array A is a permutation.
