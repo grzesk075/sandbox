@@ -1,12 +1,6 @@
 package pl.grzesk075.sandbox.codility.sorting;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
-import java.util.SortedMap;
-import java.util.TreeMap;
+import java.util.*;
 
 /**
  * Compute the number of intersections in a sequence of discs.
@@ -22,12 +16,28 @@ public class NumberOfDiscIntersections {
                 addToRadiusMap(radiusToCenterPositionSortedList, i, A[i]);
             }
             for (Map.Entry<Integer, List<Integer>> entry : radiusToCenterPositionSortedList.entrySet()) {
-                final Integer radius = entry.getKey();
-                final int[] centralPositions = entry.getValue().toArray(new int[]);
+                final Integer r = entry.getKey();
+                final int[] centralPositions = entry.getValue().stream().mapToInt(i -> i).toArray();
                 for (int centerPosition : centralPositions) {
-                    result += countTheSameRadiusDiscIntersections(radius, centerPosition, centralPositions, maxAbsolutePosition);
-                    //result += countSmallerDiscIntersections(radius, centerPosition, radiusToCenterPositionSortedList);
+                    result += countTheSameRadiusDiscIntersections(r, centerPosition, centralPositions, maxAbsolutePosition);
+                    result += countSmallerDiscIntersections(r, centerPosition, radiusToCenterPositionSortedList);
                 }
+            }
+            return result;
+        }
+
+        private int countSmallerDiscIntersections(final int radius, final int centerPosition,
+                                                  final SortedMap<Integer, List<Integer>> radiusToCenterPositionSortedList) {
+
+            int result = 0;
+            final SortedMap<Integer, List<Integer>> smallerRadiusesMap = radiusToCenterPositionSortedList.tailMap(radius);
+            for (Map.Entry<Integer, List<Integer>> entry : smallerRadiusesMap.entrySet()) {
+                final Integer r = entry.getKey();
+                if (r == radius) {
+                    continue;
+                }
+                final int[] centralPositions = entry.getValue().stream().mapToInt(i -> i).toArray();
+                result += countDifferentRadiusDiscIntersections(radius, centerPosition, r, centralPositions);
             }
             return result;
         }
@@ -45,10 +55,27 @@ public class NumberOfDiscIntersections {
                     Arrays.binarySearch(centralPositions, maxPosition));
         }
 
+        private int countDifferentRadiusDiscIntersections(final int radius, final int centerPosition,
+                                                          final int r, final int[] centralPositions) {
+
+            assert radius > r;
+            final int minPosition = centerPosition - radius - r;  // can be lower than 0
+            final int maxPosition = centerPosition + radius + r;  // can exceed maxAbsolutePosition
+            return countIntercections(Arrays.binarySearch(centralPositions, minPosition),
+                    Arrays.binarySearch(centralPositions, maxPosition));
+        }
+
         private int countIntercections(final int binarySearchResultOfMinPosition, final int binarySearchResultOfMaxPosition) {
             if (binarySearchResultOfMinPosition >= 0 && binarySearchResultOfMaxPosition >= 0) {
                 return binarySearchResultOfMaxPosition - binarySearchResultOfMinPosition + 1;
             }
+            if (binarySearchResultOfMinPosition < 0 && binarySearchResultOfMaxPosition <= 0) {
+                return binarySearchResultOfMinPosition - binarySearchResultOfMaxPosition;
+            }
+            if (binarySearchResultOfMinPosition < 0) {
+                return binarySearchResultOfMaxPosition + binarySearchResultOfMinPosition + 1;
+            }
+            return -binarySearchResultOfMaxPosition - 1 - binarySearchResultOfMinPosition;
         }
 
         private void addToRadiusMap(final SortedMap<Integer, List<Integer>> radiusToCenterPositionSortedList,
