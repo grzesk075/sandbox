@@ -7,6 +7,9 @@ import java.util.*;
  */
 public class NumberOfDiscIntersections {
     class Solution {
+
+        public static final int MAX_RESULT = 10000000;
+
         public int solution(int[] A) {
             int result = 0;
             final int maxAbsolutePosition = A.length - 1;
@@ -20,15 +23,18 @@ public class NumberOfDiscIntersections {
                 final int[] centralPositions = entry.getValue().stream().mapToInt(i -> i).toArray();
                 for (int centerPosition : centralPositions) {
                     result += countTheSameRadiusDiscIntersections(r, centerPosition, centralPositions, maxAbsolutePosition);
-                    result += countSmallerDiscIntersections(r, centerPosition, radiusToCenterPositionSortedList);
+                    result += countSmallerDiscIntersections(r, centerPosition, radiusToCenterPositionSortedList, maxAbsolutePosition);
+                    if (result > MAX_RESULT) {
+                        break;
+                    }
                 }
             }
-            return result;
+            return result > MAX_RESULT ? -1 : result;
         }
 
         private int countSmallerDiscIntersections(final int radius, final int centerPosition,
-                                                  final SortedMap<Integer, List<Integer>> radiusToCenterPositionSortedList) {
-
+                                                  final SortedMap<Integer, List<Integer>> radiusToCenterPositionSortedList,
+                                                  final int maxAbsolutePosition) {
             int result = 0;
             final SortedMap<Integer, List<Integer>> smallerRadiusesMap = radiusToCenterPositionSortedList.tailMap(radius);
             for (Map.Entry<Integer, List<Integer>> entry : smallerRadiusesMap.entrySet()) {
@@ -37,7 +43,7 @@ public class NumberOfDiscIntersections {
                     continue;
                 }
                 final int[] centralPositions = entry.getValue().stream().mapToInt(i -> i).toArray();
-                result += countDifferentRadiusDiscIntersections(radius, centerPosition, r, centralPositions);
+                result += countDifferentRadiusDiscIntersections(radius, centerPosition, r, centralPositions, maxAbsolutePosition);
             }
             return result;
         }
@@ -45,22 +51,24 @@ public class NumberOfDiscIntersections {
         private int countTheSameRadiusDiscIntersections(final int radius, final int centerPosition,
                                                         final int[] centralPositions,
                                                         final int maxAbsolutePosition) {
-
             if (radius == 0 || centerPosition == maxAbsolutePosition) {
                 return 0;
             }
             final int minPosition = centerPosition + 1;
-            final int maxPosition = centerPosition + 2 * radius;  // can exceed maxAbsolutePosition
+            final int maxPosition = (long) centerPosition + 2L * (long) radius > (long) maxAbsolutePosition ?
+                    maxAbsolutePosition : centerPosition + 2 * radius;
             return countIntercections(Arrays.binarySearch(centralPositions, minPosition),
                     Arrays.binarySearch(centralPositions, maxPosition));
         }
 
         private int countDifferentRadiusDiscIntersections(final int radius, final int centerPosition,
-                                                          final int r, final int[] centralPositions) {
+                                                          final int r, final int[] centralPositions,
+                                                          final int maxAbsolutePosition) {
 
             assert radius > r;
-            final int minPosition = centerPosition - radius - r;  // can be lower than 0
-            final int maxPosition = centerPosition + radius + r;  // can exceed maxAbsolutePosition
+            final int minPosition = (long) centerPosition - radius - r < 0 ? 0 : centerPosition - radius - r;
+            final int maxPosition = (long) centerPosition + radius + r > maxAbsolutePosition ?
+                    maxAbsolutePosition : centerPosition + radius + r;
             return countIntercections(Arrays.binarySearch(centralPositions, minPosition),
                     Arrays.binarySearch(centralPositions, maxPosition));
         }
@@ -69,11 +77,11 @@ public class NumberOfDiscIntersections {
             if (binarySearchResultOfMinPosition >= 0 && binarySearchResultOfMaxPosition >= 0) {
                 return binarySearchResultOfMaxPosition - binarySearchResultOfMinPosition + 1;
             }
-            if (binarySearchResultOfMinPosition < 0 && binarySearchResultOfMaxPosition <= 0) {
+            if (binarySearchResultOfMinPosition < 0 && binarySearchResultOfMaxPosition < 0) {
                 return binarySearchResultOfMinPosition - binarySearchResultOfMaxPosition;
             }
             if (binarySearchResultOfMinPosition < 0) {
-                return binarySearchResultOfMaxPosition + binarySearchResultOfMinPosition + 1;
+                return binarySearchResultOfMaxPosition + binarySearchResultOfMinPosition + 2;
             }
             return -binarySearchResultOfMaxPosition - 1 - binarySearchResultOfMinPosition;
         }
