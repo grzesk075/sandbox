@@ -23,5 +23,7 @@ public class NumberOfDiscIntersectionsTest {
         assertEquals(2, solution.solution(new int[]{0, 1, 1}));
         assertEquals(3, solution.solution(new int[]{1, 0, 1}));
         assertEquals(3, solution.solution(new int[]{Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE}));
+        assertEquals(3, solution.solution(new int[]{Integer.MAX_VALUE, 0, Integer.MAX_VALUE}));
+        assertEquals(11, solution.solution(new int[]{1, 5, 2, 1, 4, 0}));
     }
 }

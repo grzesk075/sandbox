@@ -4,6 +4,7 @@ import java.util.*;
 
 /**
  * Compute the number of intersections in a sequence of discs.
+ * 50% score - result is correct, but too complicated and efficiency is not enough
  */
 public class NumberOfDiscIntersections {
     class Solution {
@@ -55,7 +56,7 @@ public class NumberOfDiscIntersections {
                 return 0;
             }
             final int minPosition = centerPosition + 1;
-            final int maxPosition = (long) centerPosition + 2L * (long) radius > (long) maxAbsolutePosition ?
+            final int maxPosition = centerPosition + 2L * radius > maxAbsolutePosition ?
                     maxAbsolutePosition : centerPosition + 2 * radius;
             return countIntercections(Arrays.binarySearch(centralPositions, minPosition),
                     Arrays.binarySearch(centralPositions, maxPosition));
