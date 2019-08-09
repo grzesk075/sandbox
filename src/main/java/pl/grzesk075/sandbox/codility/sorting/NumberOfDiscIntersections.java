@@ -4,10 +4,42 @@ import java.util.*;
 
 /**
  * Compute the number of intersections in a sequence of discs.
- * 50% score - result is correct, but too complicated and efficiency is not enough
  */
 public class NumberOfDiscIntersections {
+
     class Solution {
+
+        public static final int MAX_RESULT = 10000000;
+
+        public int solution(int[] A) {
+            int result = 0;
+            final int length = A.length;
+            final long[] lowerPoints = new long[length];
+            final long[] upperPoints = new long[length];
+            for (int i = 0; i < length; i++) {
+                lowerPoints[i] = (long) i - A[i];
+                upperPoints[i] = (long) i + A[i];
+            }
+            Arrays.sort(lowerPoints);
+            Arrays.sort(upperPoints);
+            int j = 0;
+            for (int i = 0; i < length; i++) {
+                while (j < length && upperPoints[i] >= lowerPoints[j]) {
+                    result += j - i;
+                    j++;
+                }
+                if (result > MAX_RESULT) {
+                    break;
+                }
+            }
+            return result > MAX_RESULT ? -1 : result;
+        }
+    }
+
+    /**
+     * 50% score - result is correct, but too complicated and efficiency is not enough
+     */
+    class SolutionNotEnough {
 
         public static final int MAX_RESULT = 10000000;
 

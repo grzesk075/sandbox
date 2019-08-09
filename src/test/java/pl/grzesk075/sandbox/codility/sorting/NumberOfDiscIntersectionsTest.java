@@ -10,6 +10,7 @@ public class NumberOfDiscIntersectionsTest {
         final NumberOfDiscIntersections.Solution solution = new NumberOfDiscIntersections().new Solution();
         assertEquals(0, solution.solution(new int[]{}));
         assertEquals(0, solution.solution(new int[]{0}));
+        assertEquals(0, solution.solution(new int[]{1}));
         assertEquals(0, solution.solution(new int[]{Integer.MAX_VALUE}));
         assertEquals(0, solution.solution(new int[]{0, 0}));
         assertEquals(0, solution.solution(new int[]{0, 0, 0}));
