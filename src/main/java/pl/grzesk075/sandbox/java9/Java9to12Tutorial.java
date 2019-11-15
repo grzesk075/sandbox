@@ -9,6 +9,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -111,6 +112,20 @@ public class Java9to12Tutorial {
             //this is really unsafe operation new Object[] {args} will be returned
             private <T> T[] asArray(T... args) {
                 return args;
+            }
+
+            @SafeVarargs
+            private <T> List<T> flatten(List<? extends T>... lists) {
+                List<T> result = new ArrayList<>();
+                for (List<? extends T> list : lists) {
+                    result.addAll(list);
+                }
+                return result;
+            }
+
+            private void heapPollutionExample(){
+                List ln = new ArrayList<Number>();
+                List<String> ls = ln; // heap pollution
             }
         };
         System.out.println("card vendor: " + myCard.getDescription() + ", get(): " + myCard.get() +
