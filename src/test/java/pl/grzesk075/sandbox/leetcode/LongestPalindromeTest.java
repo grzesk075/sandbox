@@ -17,6 +17,12 @@ public class LongestPalindromeTest {
         assertEquals(2, LongestPalindrome.getLongestPalindromeLength("abcddef"));
         assertEquals(2, LongestPalindrome.getLongestPalindromeLength("abcdeef"));
         assertEquals(2, LongestPalindrome.getLongestPalindromeLength("abcdeff"));
+        assertEquals(3, LongestPalindrome.getLongestPalindromeLength("aaabb"));
+        assertEquals(3, LongestPalindrome.getLongestPalindromeLength("bbaaa"));
+        assertEquals(4, LongestPalindrome.getLongestPalindromeLength("aaaab"));
+        assertEquals(4, LongestPalindrome.getLongestPalindromeLength("baaaa"));
+        assertEquals(5, LongestPalindrome.getLongestPalindromeLength("aaaaa"));
+        assertEquals(6, LongestPalindrome.getLongestPalindromeLength("aaaaaa"));
         assertEquals(3, LongestPalindrome.getLongestPalindromeLength("aaabcdef"));
         assertEquals(3, LongestPalindrome.getLongestPalindromeLength("abcccdef"));
         assertEquals(3, LongestPalindrome.getLongestPalindromeLength("abcdefff"));
