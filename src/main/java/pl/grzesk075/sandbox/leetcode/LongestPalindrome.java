@@ -1,7 +1,7 @@
 package pl.grzesk075.sandbox.leetcode;
 
-public class LongestPalindrome {
-    public static int getLongestPalindromeLength(final String s){
+public interface LongestPalindrome {
+    static int getLongestPalindromeLength(final String s){
         if(s.isEmpty()){
             return 0;
         }
@@ -12,7 +12,8 @@ public class LongestPalindrome {
             if (longest >= calcMaxPosiblePalindromeLength(pos, s.length())) {
                 break;
             }
-            boolean breakEven = false, breakOdd = false;
+            boolean breakEven = false;
+            boolean breakOdd = false;
             for (int shift = 1; pos - shift >= 0 && pos + shift - 1 < s.length() && !(breakEven && breakOdd); shift++) {
                 int palindromeLength = 0;
                 String palindrome = null;
