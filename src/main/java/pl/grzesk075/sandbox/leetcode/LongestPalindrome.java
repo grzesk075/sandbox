@@ -1,7 +1,7 @@
 package pl.grzesk075.sandbox.leetcode;
 
-public interface LongestPalindrome {
-    static int getLongestPalindromeLength(final String s){
+public abstract class LongestPalindrome {
+    public static int getLongestPalindromeLength(final String s){
         if(s.isEmpty()){
             return 0;
         }
