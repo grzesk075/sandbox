@@ -1,16 +1,35 @@
 package pl.grzesk075.sandbox.leetcode;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
-import static org.assertj.core.api.Assertions.tuple;
-import static org.junit.Assert.assertEquals;
+import org.junit.Before;
+import org.junit.Test;
+import pl.grzesk075.sandbox.leetcode.ReverseLinkedList.ListNode;
 
 import java.util.Arrays;
 import java.util.LinkedList;
 
-import org.junit.Test;
+import static org.assertj.core.api.Assertions.*;
+import static org.junit.Assert.assertEquals;
 
 public class ReverseLinkedListTest {
+
+    private ListNode head_1_5;
+
+    private ListNode head_1_2;
+
+    private ListNode head_1;
+
+    @Before
+    public void setUp() throws Exception {
+        head_1_5 = new ListNode(1);
+        ListNode listNode = head_1_5;
+        for (int i = 2; i <= 5; i++) {
+            listNode.next = new ListNode(i);
+            listNode = listNode.next;
+        }
+        head_1 = new ListNode(1);
+        head_1_2 = new ListNode(1);
+        head_1_2.next = new ListNode(2);
+    }
 
     @Test
     public void shouldRevertLinkedList() {
@@ -55,5 +74,30 @@ public class ReverseLinkedListTest {
                 .withMessage("%s!", "boom")
                 .withMessageContaining("boom")
                 .withNoCause();
+    }
+
+    @Test
+    public void shouldRevertSinglyLinkedListIteratively() {
+        checkRevertedHead_1_5(ReverseLinkedList.reverseListIteratively(head_1_5), 5);
+        checkRevertedHead_1_5(ReverseLinkedList.reverseListIteratively(head_1_2), 2);
+        checkRevertedHead_1_5(ReverseLinkedList.reverseListIteratively(head_1), 1);
+        assertThat(ReverseLinkedList.reverseListIteratively(null)).isNull();
+    }
+
+    @Test
+    public void shouldRevertSinglyLinkedListIteratively1() {
+        checkRevertedHead_1_5(ReverseLinkedList.reverseListIteratively1(head_1_5), 5);
+        checkRevertedHead_1_5(ReverseLinkedList.reverseListIteratively1(head_1_2), 2);
+        checkRevertedHead_1_5(ReverseLinkedList.reverseListIteratively1(head_1), 1);
+        assertThat(ReverseLinkedList.reverseListIteratively1(null)).isNull();
+    }
+
+    private void checkRevertedHead_1_5(ListNode reverted, int size) {
+        ListNode listNode = reverted;
+        for (int i = size; i > 0; i--) {
+            assertThat(listNode.val).isEqualTo(i);
+            listNode = listNode.next;
+        }
+        assertThat(listNode).isNull();
     }
 }
