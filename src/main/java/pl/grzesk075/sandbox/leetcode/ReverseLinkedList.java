@@ -69,4 +69,25 @@ public class ReverseLinkedList {
         }
         return newHead;
     }
+
+    public static ListNode reverseListRecursively(ListNode head) {
+        if (head == null) {
+            return null;
+        }
+        ListNode newHead = head;
+        ListNode oldHead = head.next;
+        newHead.next = null;
+        return moveNode(newHead, oldHead);
+    }
+
+    private static ListNode moveNode(ListNode newHead, ListNode oldHead) {
+        if (oldHead == null) {
+            return newHead;
+        }
+        final ListNode previousNewHead = newHead;
+        newHead = oldHead;
+        oldHead = oldHead.next;
+        newHead.next = previousNewHead;
+        return moveNode(newHead, oldHead);
+    }
 }

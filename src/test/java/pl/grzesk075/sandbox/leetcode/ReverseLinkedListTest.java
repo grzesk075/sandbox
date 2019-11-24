@@ -92,6 +92,14 @@ public class ReverseLinkedListTest {
         assertThat(ReverseLinkedList.reverseListIteratively1(null)).isNull();
     }
 
+    @Test
+    public void shouldRevertSinglyLinkedListRecursively() {
+        checkRevertedHead_1_5(ReverseLinkedList.reverseListRecursively(head_1_5), 5);
+        checkRevertedHead_1_5(ReverseLinkedList.reverseListRecursively(head_1_2), 2);
+        checkRevertedHead_1_5(ReverseLinkedList.reverseListRecursively(head_1), 1);
+        assertThat(ReverseLinkedList.reverseListRecursively(null)).isNull();
+    }
+
     private void checkRevertedHead_1_5(ListNode reverted, int size) {
         ListNode listNode = reverted;
         for (int i = size; i > 0; i--) {
