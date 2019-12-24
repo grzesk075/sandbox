@@ -2,10 +2,25 @@ package pl.grzesk075.sandbox.leetcode;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 public class AddToArrayFormOfInteger {
+
     public List<Integer> addToArrayForm(int[] A, int K) {
+        final List<Integer> result = new LinkedList<>();
+        int kRestWithCarry = K;
+        for (int i = A.length - 1; i >= 0 || kRestWithCarry > 0; --i) {
+            final int aDigit = i >= 0 ? A[i] : 0;
+            kRestWithCarry += aDigit;
+            final int resultDigit = kRestWithCarry % 10;
+            result.add(0, resultDigit);
+            kRestWithCarry /= 10;
+        }
+        return result;
+    }
+
+    public List<Integer> addToArrayFormFirstSolution(int[] A, int K) {
         final List<Integer> result = new ArrayList<>();
         final StringBuilder kReversed = new StringBuilder(String.valueOf(K)).reverse();
         int i = 0;
