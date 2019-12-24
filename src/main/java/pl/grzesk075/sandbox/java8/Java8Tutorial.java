@@ -18,12 +18,7 @@ import java.util.List;
 import java.util.LongSummaryStatistics;
 import java.util.Optional;
 import java.util.OptionalDouble;
-import java.util.function.BiFunction;
-import java.util.function.Consumer;
-import java.util.function.Function;
-import java.util.function.Predicate;
-import java.util.function.Supplier;
-import java.util.function.UnaryOperator;
+import java.util.function.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -88,6 +83,11 @@ public class Java8Tutorial
             Stream.of( "A", "B", "C").parallel().forEach( printStr);
             
             IntStream.range( 1, 5).flatMap( i -> IntStream.rangeClosed( 1, i)).forEach( System.out::println);
+
+            final Function<int[],Integer> lengthOfArray = i -> i.length;
+            final IntFunction<Long> intToLongCustFunction = i -> (long) i;
+            final long custed = intToLongCustFunction.apply(4);
+            System.out.println("intToLongCustFunction: " + custed);
             
             /*
             Są 4 rodzaje wskaźników do funkcji:
