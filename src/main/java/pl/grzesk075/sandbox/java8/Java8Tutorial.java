@@ -84,7 +84,7 @@ public class Java8Tutorial
             
             IntStream.range( 1, 5).flatMap( i -> IntStream.rangeClosed( 1, i)).forEach( System.out::println);
 
-            final Function<int[],Integer> lengthOfArray = i -> i.length;
+            final Function<int[],Integer> lengthOfArray = i -> i.length;  // int[] extends Object, likewise interface
             final IntFunction<Long> intToLongCustFunction = i -> (long) i;
             final long custed = intToLongCustFunction.apply(4);
             System.out.println("intToLongCustFunction: " + custed);
