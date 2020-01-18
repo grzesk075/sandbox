@@ -1,4 +1,4 @@
-package pl.grzesk075.sandbox.java9;
+package pl.grzesk075.sandbox.java;
 
 import java.io.Closeable;
 import java.io.IOException;
@@ -21,9 +21,6 @@ import java.util.stream.Stream;
 
 /**
  * New major features in JAVA versions 9 to 12 summary.
- * Should be run on JAVA 12 or above.
- *
- * @author Grzegorz Kuprianowicz <grzesk075@gmail.com>
  */
 public class Java9to12Tutorial {
 
@@ -66,7 +63,9 @@ public class Java9to12Tutorial {
         */
         
         /*
-        3. Extended jcmd tool able to send diagnostic commands to running HotSpot JVM.
+        3. Enable in OpenJDK 11 free profiler as features: Java Flight Recorder and Java Mission Control.
+        IntelliJ commercial version supports this.
+        Extended jcmd tool able to send diagnostic commands to running HotSpot JVM.
         */
         
         /*

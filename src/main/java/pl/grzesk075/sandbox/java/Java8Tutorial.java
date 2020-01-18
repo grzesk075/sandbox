@@ -1,4 +1,4 @@
-package pl.grzesk075.sandbox.java8;
+package pl.grzesk075.sandbox.java;
 
 import java.io.BufferedReader;
 import java.io.File;
