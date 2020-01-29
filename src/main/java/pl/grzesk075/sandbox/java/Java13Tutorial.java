@@ -1,11 +1,15 @@
 package pl.grzesk075.sandbox.java;
 
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+import javax.script.ScriptException;
+
 /**
  * New features in JAVA 13.
  */
 public class Java13Tutorial {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ScriptException {
 
         System.out.println("New features in JAVA 13.");
 
@@ -32,21 +36,21 @@ public class Java13Tutorial {
 
         /*
         3. JEP 354: Switch Expressions (Preview)
-        Uncomment and use java 13 in src\main\java folder:
+        Use java 13 in src\main\java folder:
         javac --enable-preview --release 13 pl\grzesk075\sandbox\java\Java13Tutorial.java
         java --enable-preview pl.grzesk075.sandbox.java.Java13Tutorial
         */
-/*
+
         final int month = 4;
-        String season = switch(month){
-            case 3, 4, 5    -> "spring";
-            case 6, 7, 8    -> "summer";
-            case 9, 10, 11  -> "autumn";
-            case 12, 1, 2   -> "winter";
+        String season = switch (month) {
+            case 3, 4, 5 -> "spring";
+            case 6, 7, 8 -> "summer";
+            case 9, 10, 11 -> "autumn";
+            case 12, 1, 2 -> "winter";
             default -> throw new IllegalArgumentException("month can be from 1 to 12");
         };
         System.out.println("Season is " + season);
-        season = switch(month){
+        season = switch (month) {
             case 3:
             case 4:
             case 5:
@@ -65,6 +69,32 @@ public class Java13Tutorial {
                 throw new IllegalArgumentException("month can be from 1 to 12");
         };
         System.out.println("Season is " + season);
-*/
+
+
+        /*
+        4. JEP 355: Text Blocks (Preview)
+        Will be updated by JEP 368: Text Blocks (Second Preview) in java 14.
+        Test as above point.
+        */
+
+        final String html = """
+                            <html>
+                                <body>
+                                    <p font-weight="bold">Hello, world</p>
+                                </body>
+                            </html>
+                            """;
+        ScriptEngine engine = new ScriptEngineManager().getEngineByName("js");
+        Object obj = engine.eval("""
+                         function hello() {
+                             print('"Hello, world"');
+                         }
+
+                         hello();
+                         """);
+        final String message = """
+                         Message %s=%d.
+                         """;
+        System.out.println(String.format(message, "a", 1));
     }
 }
