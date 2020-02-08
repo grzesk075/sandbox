@@ -1,3 +1,5 @@
 /target/
-.idea
-sandbox.iml
+/.idea/*
+/sandbox.iml
+
+!/.idea/runConfigurations
