@@ -6,6 +6,15 @@
         <option name="containerName" value="" />
         <option name="entrypoint" value="" />
         <option name="imageTag" value="javasandbox:1.0" />
+        <option name="portBindings">
+          <list>
+            <DockerPortBindingImpl>
+              <option name="containerPort" value="5005" />
+              <option name="hostIp" value="localhost" />
+              <option name="hostPort" value="5005" />
+            </DockerPortBindingImpl>
+          </list>
+        </option>
         <option name="commandLineOptions" value="" />
       </settings>
     </deployment>
