@@ -1,6 +1,7 @@
 package pl.grzesk075.sandbox.leetcode;
 
-import java.util.Stack;
+import java.util.ArrayDeque;
+import java.util.Deque;
 
 /**
  * 92. Reverse Linked List II from position m to n.
@@ -14,7 +15,7 @@ public class ReverseLinkedList2 {
             return head;
         }
         ListNode newHead = (m != 1) ? head : null;
-        Stack<ListNode> revertNodes = new Stack<>();
+        Deque<ListNode> revertNodes = new ArrayDeque<>();
         ListNode lastNode = null;
         ListNode currentNode = head;
         for (int i = 1; i <= n; i++) {
