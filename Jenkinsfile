@@ -1,9 +1,10 @@
 pipeline {
-    agent { docker { image 'maven:3.6.3' } }
+    agent any
     stages {
         stage('build') {
             steps {
-                sh 'mvn --version'
+                sh 'alias mvn14="JAVA_HOME=/java/jdk-14 && mvn"'
+                sh 'mvn14 --version'
             }
         }
     }

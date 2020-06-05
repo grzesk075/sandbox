@@ -1,0 +1,1 @@
+docker build -t jenkins-gk:1.0 .
