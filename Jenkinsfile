@@ -6,8 +6,7 @@ pipeline {
             steps {
                 sh """
                     export JAVA_HOME=/java/jdk-14
-                    mvn --version
-                    ls -a
+                    mvn clean install
                 """
             }
         }
