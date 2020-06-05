@@ -3,7 +3,7 @@ pipeline {
     agent any
 
     environment {
-        JAVA_HOME "/java/jdk-13"
+        JAVA_HOME = "/java/jdk-13"
     }
 
     stages {
