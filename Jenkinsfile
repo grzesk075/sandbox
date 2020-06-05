@@ -5,11 +5,10 @@ pipeline {
         stage('Build') {
             steps {
                 sh """
-                    JAVA_HOME=/java/jdk-14
-                    export JAVA_HOME
+                    export JAVA_HOME=/java/jdk-14
                     mvn --version
-                    echo $JAVA_HOME
-                    "${JAVA_HOME}/bin/java" -version
+                    'echo $JAVA_HOME'
+                    '"${JAVA_HOME}/bin/java"' -version
                 """
             }
         }
