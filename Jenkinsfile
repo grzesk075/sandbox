@@ -7,8 +7,7 @@ pipeline {
                 sh """
                     export JAVA_HOME=/java/jdk-14
                     mvn --version
-                    'echo $JAVA_HOME'
-                    '"${JAVA_HOME}/bin/java"' -version
+                    ls -a
                 """
             }
         }
