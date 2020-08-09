@@ -23,4 +23,12 @@ public class BrokenKeyboardTest {
                 brokenKeyboard.getActualUserInput(" can s r n ",
                         Arrays.asList("can", "canes", "serene", "rene", "sam")));
     }
+
+    @Test
+    public void getActualUserInputTest2() {
+        final BrokenKeyboard brokenKeyboard = new BrokenKeyboard();
+        assertEquals(Arrays.asList(" can serene ", " canes rene "),
+                brokenKeyboard.getActualUserInput(" can s r n  ",
+                        Arrays.asList("can", "canes", "serene", "rene", "sam")));
+    }
 }
