@@ -9,6 +9,8 @@ import java.util.List;
  * It verifies and abandons branches at any time.
  * Time complexity is quadratic to exponential.
  * Looks O(n*n) for this solution.
+ *
+ * Broken keyboard types space when pressed e. Get actual strings, that user actually might type, using dict of possible words.
  */
 public class BrokenKeyboard {
 
