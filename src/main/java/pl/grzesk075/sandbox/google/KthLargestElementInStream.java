@@ -1,5 +1,10 @@
 package pl.grzesk075.sandbox.google;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 /**
  * Find the kth largest element in a number stream.
  * <p>
@@ -13,18 +18,42 @@ public class KthLargestElementInStream {
 
     private final int K;
 
-    private final int[] largestNumbers;
+    private final List<Integer> largestNumbers = new ArrayList<>();
+
+    private Integer[] largestNumbersHelperArray;
 
     public KthLargestElementInStream(final int[] initialNumbers, final int K) {
         this.K = K;
-        largestNumbers = new int[K];
 
+        Arrays.sort(initialNumbers);
 
+        Integer last = null;
+        for (int i = initialNumbers.length - 1; i >= 0; i--) {
+            final Integer num = Integer.valueOf(initialNumbers[i]);
+            if (num.equals(last)) {
+                continue;
+            }
+            last = num;
+            largestNumbers.add(num);
+            if (largestNumbers.size() == K) {
+                break;
+            }
+        }
     }
 
     public int add(int num) {
-
-
-        return largestNumbers[K];
+        if (largestNumbersHelperArray == null || largestNumbersHelperArray.length != largestNumbers.size()) {
+            largestNumbersHelperArray = new Integer[largestNumbers.size()];
+        }
+        final int index = Arrays.binarySearch(largestNumbers.toArray(largestNumbersHelperArray), num, Collections.reverseOrder());
+        if (index >= 0) {
+            return largestNumbers.get(K);
+        }
+        final int insertionPoint = -index - 1;
+        largestNumbers.add(insertionPoint, num);
+        if (largestNumbers.size() > K) {
+            largestNumbers.remove(K);
+        }
+        return largestNumbers.get(K);
     }
 }
