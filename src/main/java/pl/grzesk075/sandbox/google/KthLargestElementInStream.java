@@ -47,13 +47,13 @@ public class KthLargestElementInStream {
         }
         final int index = Arrays.binarySearch(largestNumbers.toArray(largestNumbersHelperArray), num, Collections.reverseOrder());
         if (index >= 0) {
-            return largestNumbers.get(K);
+            return largestNumbers.get(K - 1);
         }
         final int insertionPoint = -index - 1;
         largestNumbers.add(insertionPoint, num);
         if (largestNumbers.size() > K) {
             largestNumbers.remove(K);
         }
-        return largestNumbers.get(K);
+        return largestNumbers.get(K - 1);
     }
 }
