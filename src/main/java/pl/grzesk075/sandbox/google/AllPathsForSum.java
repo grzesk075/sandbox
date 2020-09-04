@@ -9,6 +9,7 @@ import java.util.List;
  * <p>
  * Problem statement:
  * Given a binary tree and a number ‘S’, find all paths from root-to-leaf such that the sum of all the node values of each path equals ‘S’.
+ * DFS O(V) - Depth First Search - linear time complexity in function of vertices count.
  */
 public class AllPathsForSum {
 

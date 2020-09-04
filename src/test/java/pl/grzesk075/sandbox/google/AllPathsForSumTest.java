@@ -45,4 +45,21 @@ public class AllPathsForSumTest {
         final List<List<AllPathsForSum.Node>> pathsWithSum = AllPathsForSum.findPathsWithSum(root, 2);
         assertTrue(pathsWithSum.isEmpty());
     }
+
+    @Test
+    public void shouldFindPathsWithSumMaxInt() {
+        final AllPathsForSum.Node root = new AllPathsForSum.Node(0);
+        final AllPathsForSum.Node left = new AllPathsForSum.Node(Integer.MAX_VALUE);
+        final AllPathsForSum.Node right = new AllPathsForSum.Node(Integer.MAX_VALUE);
+        root.left = left;
+        root.right = right;
+        right.left = new AllPathsForSum.Node(Integer.MAX_VALUE);
+        right.right = new AllPathsForSum.Node(Integer.MIN_VALUE + 1);
+
+        final List<List<AllPathsForSum.Node>> pathsWithSum = AllPathsForSum.findPathsWithSum(root, 0);
+        assertEquals(1, pathsWithSum.size());
+        assertSame(root, pathsWithSum.get(0).get(0));
+        assertSame(right, pathsWithSum.get(0).get(1));
+        assertSame(right.right, pathsWithSum.get(0).get(2));
+    }
 }
