@@ -1,5 +1,8 @@
 package pl.grzesk075.sandbox.google;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Copy linked list with arbitrary pointer.
  * <p/>
@@ -12,12 +15,17 @@ package pl.grzesk075.sandbox.google;
  */
 public class CopyLinkedList {
 
+    private CopyLinkedList() {
+    }
+
     public static Node deepCopyLinkedList(Node head) {
+        Map<Node, Node> originalNodeToCopiedNode = new HashMap<>();
         Node copyHead = null;
         Node copyNode = null;
         Node node = head;
         while (node != null) {
             Node newNode = new Node(node.value);
+            originalNodeToCopiedNode.put(node, newNode);
             if (copyHead == null) {
                 copyHead = newNode;
                 copyNode = newNode;
@@ -27,7 +35,14 @@ public class CopyLinkedList {
             }
             node = node.next;
         }
-        return copyHead; //TODO: shallow copy so far
+        node = head;
+        while (node != null) {
+            final Node copiedNode = originalNodeToCopiedNode.get(node);
+            final Node copiedNodeArbitraryPointer = originalNodeToCopiedNode.get(node.arbitrary_pointer);
+            copiedNode.arbitrary_pointer = copiedNodeArbitraryPointer;
+            node = node.next;
+        }
+        return copyHead;
     }
 
     public static class Node {
