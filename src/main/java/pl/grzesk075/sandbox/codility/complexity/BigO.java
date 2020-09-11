@@ -11,8 +11,8 @@ package pl.grzesk075.sandbox.codility.complexity;
  * O(n+m)       linear              for i in range(n): a *= i; for j in range(m): a *= j
  * O(n log n)
  * O(n^2)       quadratic           for i in range(n): for j in range(n): a *= j
- * O(n!)        factorial
  * O(2^n)       exponential
+ * O(n!)        factorial
  *
  * Space complexity depends of number of variables to be declared (stack in case of recursion and other memory as well).
  * O(1) is for constant number of variables.
@@ -20,5 +20,15 @@ package pl.grzesk075.sandbox.codility.complexity;
  */
 public class BigO {
 
-    /** Calculate sum of that series 1 + 2 + 3 + ... + n. */
+    /**
+     * Calculate sum of that series 1 + 2 + 3 + ... + n.
+     *
+     * O(1)
+     * sum=n*(n+1)/2
+     *
+     * O(n)
+     * for (int i = 1; i <= n; i++) {
+     *     sum += i;
+     * }
+     */
 }
