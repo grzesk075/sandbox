@@ -83,7 +83,9 @@ public class EqualSubsetSum {
             return false;
         }
         for (int j = i + 1; j < set.length; j++) {
-            checkSubset(set, half, j, sum);
+            if (checkSubset(set, half, j, sum)) {
+                return true;
+            }
         }
         return false;
     }
