@@ -1,7 +1,5 @@
 package pl.grzesk075.sandbox.google;
 
-import java.util.Arrays;
-
 /**
  * Find the high and low index.
  * <p>
@@ -11,27 +9,32 @@ import java.util.Arrays;
  */
 public class HighLowIndex {
 
+    /**
+     * Linear O(n).
+     * Usage of modified binary search would give O(log(n)), but could be too complicated to meet assessment deadline.
+     */
     public static Indices findHighAndLowIndices(final int[] a, final int key) {
-
-        Indices result = new Indices(-1, -1);
-        int lowerThanKeyIdx = 0;
-        int higherThanKeyIdx = a.length - 1;
-        if (key < a[lowerThanKeyIdx] || a[higherThanKeyIdx] < key) {
-            return result;
+        int low = -1;
+        int high = -1;
+        boolean found = false;
+        for (int i = 0; i < a.length; i++) {
+            int v = a[i];
+            if (v == key) {
+                if (!found) {
+                    found = true;
+                    low = i;
+                }
+            } else if (v > key) {
+                if (found) {
+                    high = i - 1;
+                }
+                break;
+            }
         }
-        int lowResult = -1;
-        int highResult = -1;
-        if (key == a[lowerThanKeyIdx]) {
-            lowResult = lowerThanKeyIdx;
+        if (found && high == -1) {
+            high = a.length - 1;
         }
-        if (key == a[higherThanKeyIdx]) {
-            highResult = higherThanKeyIdx;
-        }
-        //use Arrays.binarySearch(a, key);
-
-        result.low = lowResult;
-        result.high = highResult;
-        return result;
+        return new Indices(low, high);
     }
 
     public static class Indices {
