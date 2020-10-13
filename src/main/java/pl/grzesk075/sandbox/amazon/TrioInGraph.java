@@ -25,26 +25,37 @@ public class TrioInGraph {
         }
         List<List<Integer>> trios = new LinkedList<>();
         for (int n = 0; n < adjacencyList.length; n++) {
-            int startPoint = n;
-            int node = n;
-            int parent = -1;
-            List<Integer> visited = new LinkedList<>();
-
-            findTrios(trios, adjacencyList, startPoint, node, parent, visited);
+            findTrios(trios, adjacencyList, n, n, -1, new LinkedList<Integer>());
         }
-
-        return -1;
+        int maxSum = -1;
+        for (List<Integer> trio : trios) {
+            int sum = 0;
+            for (Integer n : trio) {
+                sum += adjacencyList[n].size() - 2;
+            }
+            if (sum > maxSum) {
+                maxSum = sum;
+            }
+        }
+        return maxSum;
     }
 
     private static void findTrios(List<List<Integer>> trios, LinkedList<Integer>[] adjacencyList,
-                                  int startPoint, int node, int parent, List<Integer> visited) {
+                                  int startNode, int node, int parent, List<Integer> visited) {
         visited.add(node);
         List<Integer> neighbours = adjacencyList[node];
+        if (visited.size() == 3) {
+            if (neighbours.contains(startNode)) {
+                trios.add(visited);
+            }
+            return;
+        }
         for (Integer neighbour : neighbours) {
             if (neighbour == parent) {
                 continue;
             }
-            visited.copy
+            List<Integer> nextVisited = new LinkedList<>(visited);
+            findTrios(trios, adjacencyList, startNode, neighbour, node, nextVisited);
         }
     }
 }
