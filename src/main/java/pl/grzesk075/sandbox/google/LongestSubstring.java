@@ -37,7 +37,7 @@ public class LongestSubstring {
                     } else {
                         m.put(rem, remCnt - 1);
                     }
-                } while (m.size() == k);
+                } while (m.size() > k);
             }
             if (len > maxLen) {
                 maxLen = len;
