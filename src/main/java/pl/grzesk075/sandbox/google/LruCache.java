@@ -9,4 +9,15 @@ package pl.grzesk075.sandbox.google;
  * meaning it discards the least recently used items first.
  */
 public class LruCache {
+    public LruCache(int capacity) {
+
+    }
+
+    public int get(int key) {
+        return -1;
+    }
+
+    public void put(int key, int value) {
+
+    }
 }
