@@ -167,7 +167,8 @@ public class Java8Tutorial
             5. Nowe API do daty i czasu.
             Klasy Date i GregorianCalendar zostały uznane za przestarzałe, ale nie oznaczono ich jako deprecated.
             Nowe API jest w pakiecie java.time.
-            LocalDateTime przechowuje czas lokalny bez strefy czasowej z dokładnością do nanosekund od '-999999999-01-01T00:00:00' do '+999999999-12-31T23:59:59.999999999' i zgodnie z ISO-8601.
+            LocalDateTime przechowuje czas lokalny bez strefy czasowej z dokładnością do nanosekund
+            od '-999999999-01-01T00:00:00' do '+999999999-12-31T23:59:59.999999999' i zgodnie z ISO-8601.
             ZonedDateTime dodatkowo obsługuje strefy czasowe w zgodzie z ISO-8601.
             Dodano klasy Period i Duration.
             */
