@@ -18,12 +18,18 @@ public class MergeOverlappingIntervals {
 
         LocalDateTime begin = null, end = null;
         for (LocalDateTime[] interval : intervals) {
+            LocalDateTime localBegin = interval[0];
+            LocalDateTime localEnd = interval[1];
             if (begin == null) {
-                begin = interval[0];
-                end = interval[1];
-                continue;
+                begin = localBegin;
+                end = localEnd;
+            } else if (localBegin.isAfter(end)) {
+                merged.add(new LocalDateTime[]{begin, end});
+                begin = localBegin;
+                end = localEnd;
+            } else if (localEnd.isAfter(end)) {
+                end = localEnd;
             }
-
         }
         if (begin != null) {
             merged.add(new LocalDateTime[]{begin, end});

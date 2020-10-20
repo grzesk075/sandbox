@@ -34,6 +34,7 @@ public class MergeOverlappingIntervalsTest {
                 {LOCAL_DATE_TIME_1, LOCAL_DATE_TIME_2}
         };
         assertArrayEquals(intervals1merged, MergeOverlappingIntervals.mergeOverlappingIntervals(intervals1));
+        assertArrayEquals(intervals1merged, MergeOverlappingIntervals.mergeOverlappingIntervals(intervals1merged));
 
         LocalDateTime[][] intervals2 = new LocalDateTime[][]{
                 {LOCAL_DATE_TIME_1, LOCAL_DATE_TIME_2},
