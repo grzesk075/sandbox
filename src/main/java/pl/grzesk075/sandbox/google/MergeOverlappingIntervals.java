@@ -1,6 +1,8 @@
 package pl.grzesk075.sandbox.google;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Merge overlapping intervals.
@@ -12,6 +14,26 @@ import java.time.LocalDateTime;
  */
 public class MergeOverlappingIntervals {
     public static LocalDateTime[][] mergeOverlappingIntervals(LocalDateTime[][] intervals) {
+        List<LocalDateTime[]> merged = new ArrayList<>();
 
+        LocalDateTime begin = null, end = null;
+        for (LocalDateTime[] interval : intervals) {
+            if (begin == null) {
+                begin = interval[0];
+                end = interval[1];
+                continue;
+            }
+
+        }
+        if (begin != null) {
+            merged.add(new LocalDateTime[]{begin, end});
+        }
+
+        LocalDateTime[][] mergedIntervals = new LocalDateTime[merged.size()][2];
+        int i = 0;
+        for (LocalDateTime[] localDateTimes : merged) {
+            mergedIntervals[i++] = localDateTimes;
+        }
+        return mergedIntervals;
     }
 }
