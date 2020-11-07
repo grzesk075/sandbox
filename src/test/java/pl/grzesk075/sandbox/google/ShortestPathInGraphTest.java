@@ -10,12 +10,13 @@ import java.util.Collections;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 public class ShortestPathInGraphTest {
 
-    public static final int[] G1_FROM = new int[]{};
-    public static final int[] G1_TO = new int[]{};
-    public static final List<Integer> PATH_0_4 = Arrays.asList();
+    public static final int[] G1_FROM = new int[]{0, 0, 0, 1, 1, 2, 2, 2, 3, 4, 5, 6, 7, 7, 8,10};
+    public static final int[] G1_TO = new int[]{1, 2, 3, 2, 3, 3, 6, 8, 4, 5, 6, 7, 8, 9, 9,11};
+    public static final List<Integer> PATH_0_4 = Arrays.asList(0, 3, 4);
     public static final List<Integer> PATH_4_0;
 
     // In static block you can initialize static final class field.
@@ -25,8 +26,8 @@ public class ShortestPathInGraphTest {
         PATH_4_0 = path040;
     }
 
-    public static final List<Integer> PATH_3_8 = Arrays.asList();
-    public static final List<Integer> PATH_8_3 = reverse(PATH_3_8);
+    public static final List<Integer> PATH_4_8 = Arrays.asList(4, 3, 2, 8);
+    public static final List<Integer> PATH_8_4 = reverse(PATH_4_8);
 
     private static List<Integer> reverse(List<Integer> list) {
         List<Integer> reversed = new ArrayList<>(list);
@@ -51,8 +52,14 @@ public class ShortestPathInGraphTest {
     }
 
     @Test
-    public void getShortestPathTest38() {
-        assertEquals(PATH_3_8, ShortestPathInGraph.getShortestPath(3, 8, G1_FROM, G1_TO));
-        assertEquals(PATH_8_3, ShortestPathInGraph.getShortestPath(8, 3, G1_FROM, G1_TO));
+    public void getShortestPathTest48() {
+        assertEquals(PATH_4_8, ShortestPathInGraph.getShortestPath(4, 8, G1_FROM, G1_TO));
+        assertEquals(PATH_8_4, ShortestPathInGraph.getShortestPath(8, 4, G1_FROM, G1_TO));
+    }
+
+    @Test
+    public void getShortestPathTestNull() {
+        assertNull( ShortestPathInGraph.getShortestPath(1, 11, G1_FROM, G1_TO));
+        assertNull( ShortestPathInGraph.getShortestPath(11, 1, G1_FROM, G1_TO));
     }
 }
