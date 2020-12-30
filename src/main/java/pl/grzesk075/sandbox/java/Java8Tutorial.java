@@ -41,8 +41,10 @@ public class Java8Tutorial
         {
             /*
             1. Lambda Expressions i wskaźniki do funkcji.
-            W pakiecie java.util.function są zdefiniowane interfejsy funkcjonalne, pod które można podstawiać wskaźniki do funkcji lub wyrażenia lambda.
-            API klas dostarczanych w dystrybucji java 8 zostało rozszerzone o metody przyjmujace jako argumenty wskaźniki do funkcji lub wyrażenia lambda, czyli implementacje interfejsów z java.util.function.
+            W pakiecie java.util.function są zdefiniowane interfejsy funkcyjne (functiona interface),
+            pod które można podstawiać wskaźniki do funkcji lub wyrażenia lambda.
+            API klas dostarczanych w dystrybucji java 8 zostało rozszerzone o metody przyjmujace jako argumenty wskaźniki do funkcji lub wyrażenia lambda,
+            czyli implementacje interfejsów z java.util.function.
             Tam, gdzie argumentem jest stary interfejs zawierający jedną metodę np. w Collections.sort, nie trzeba było rozszerzać API.
             Jako argument Comparator<? super T> w Collections.sort można użyć wyrażenia lambda pasującego argumentami i wynikiem do funkcji compare z Comparator<? super T>.
             Przykładowo zamiast posługiwać się po staremu anonimową implementacją interfejsu Comparator<T>
@@ -60,10 +62,12 @@ public class Java8Tutorial
             W lambda można używać zmiennych z enclosing type i nie muszą one być final - wystarczy by były effective final czyli nie były modyfikowane przez lambda.
             Dodatkowo w argumentach lambdy nie można użyć nazw zmiennych z enclosing type.
             Lambda może być zastosowana jako implementacja interfejsu będącego @FunctionalInterface (adnotacja nie jest konieczna).
+            Functional interface has Single Abstract Method (SAM).
             Lambda nie może być użyta jako implementacja klasy abstrakcyjnej.
             Lambda powinna być prosta i jednoliniowa, by nie trzeba było jej debugować.
             W przypadku bardziej skomplikowanych operacji należy przekazać referencję do metody, którą można już debugować.
             */
+            //Function - apply
             Function<Integer,Long> tripleInt = a -> 3L * a; //Wyrażenie lambda, czyli anonimowa funkcja, którą przez wskaźnik tripleInt można przekazać jako argument do innej funkcji i w niej wywołać.
             Function<Integer,Long> doubleInt = ( Integer i) -> { return  2L * i;}; //( Integer) { return ;}  - te znaki są opcjonalne i w prostych lambda może ich nie być
             Function<Integer,Long> powInt = Java8Tutorial::pow;
@@ -74,9 +78,12 @@ public class Java8Tutorial
             UnaryOperator<Integer> increment = i -> ++i;
             LongSummaryStatistics summaryStatistics = Stream.of( 1, 2, 3).map( increment).filter( i -> i < 3).map( Long::new).collect( Collectors.summarizingLong( i -> i));
             System.out.println( summaryStatistics);
-            
+
+            //Predicate - test
             Predicate<String> isNullStr = s -> s == null;
+            //Consumer - accept
             Consumer<String> printStr = s -> System.out.println( s);
+            //Supplier - get
             Supplier<Double> randomValueSupplier = () -> Math.random();
             
             Stream.generate( randomValueSupplier).limit( 10).map( String::valueOf).forEach( printStr);
