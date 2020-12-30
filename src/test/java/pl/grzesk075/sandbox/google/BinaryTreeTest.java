@@ -64,10 +64,26 @@ public class BinaryTreeTest {
 
     @Test
     public void invertBinaryTreeDFS() {
+        final Node inverted = binaryTree.invertBinaryTreeDFS(root);
+        assertInvertedTree(inverted);
     }
 
     @Test
     public void invertBinaryTreeBFS() {
+        final Node inverted = binaryTree.invertBinaryTreeBFS(root);
+        assertInvertedTree(inverted);
+    }
+
+    private void assertInvertedTree(Node inverted) {
+        assertEquals(5, inverted.v);
+        assertEquals(1, inverted.l.v);
+        assertEquals(-1, inverted.r.v);
+        assertEquals(3, inverted.l.l.v);
+        assertEquals(7, inverted.l.r.v);
+        assertEquals(4, inverted.r.l.v);
+        assertEquals(8, inverted.r.r.v);
+        assertEquals(30, inverted.l.l.l.v);
+        assertEquals(20, inverted.r.r.r.v);
     }
 
     @Test
