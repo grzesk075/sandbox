@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * Find diameter of a tree.
  *
- * O(n*n). One use case in tests doesn't work.
+ * O(n*n). One use case in tests doesn't work. Bad solution replaced with linear one.
  */
 public class DiameterOfTree {
 
