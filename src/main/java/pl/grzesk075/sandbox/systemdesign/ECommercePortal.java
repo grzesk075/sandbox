@@ -4,9 +4,17 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * We need SQL DB, rest API, WebApp.
+ * We need modules: SQL DB, rest API, WebApp.
  * With microservices concept, model is in database, and is read and write with small rest requests
  * caused by customer browser events like clicking.
+ * Actors (activity diagram):
+ * ShopOwner caries out Shop
+ * Customer buys Products
+ * Customer uses Shop
+ * Stock stores Products
+ * Workers ship Products
+ *
+ * Data model:
  */
 public class ECommercePortal {
 
@@ -14,6 +22,7 @@ public class ECommercePortal {
     List<CustomerAccount> customers;
     List<Product> products;
     Map<Product, StockInfo> product2StockInfo;
+    //List<Cart> cart consists of Customer and Order
 }
 
 class CustomerAccount {
