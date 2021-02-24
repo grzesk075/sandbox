@@ -10,15 +10,13 @@ public class Singleton {
     }
 
     public static Singleton getInstance() {
-        if (instance != null) {
-            return instance;
-        }
-        synchronized (MONITOR) {
-            if (instance != null) {
-                return instance;
+        if (instance == null) {
+            synchronized (MONITOR) {
+                if (instance == null) {
+                    instance = new Singleton();
+                }
             }
-            instance = new Singleton();
-            return instance;
         }
+        return instance;
     }
 }
