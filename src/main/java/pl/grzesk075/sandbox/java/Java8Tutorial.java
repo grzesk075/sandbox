@@ -18,7 +18,14 @@ import java.util.List;
 import java.util.LongSummaryStatistics;
 import java.util.Optional;
 import java.util.OptionalDouble;
-import java.util.function.*;
+import java.util.function.BiFunction;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.IntFunction;
+import java.util.function.IntUnaryOperator;
+import java.util.function.Predicate;
+import java.util.function.Supplier;
+import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -29,9 +36,12 @@ import javax.script.ScriptEngineManager;
 
 /**
  * Sandbox for new features of Java 8.
- * @implSpec <b>html bold markup</b>
- * @implNote {@literal Characters like '<' and '>' should be inside {@literal} to avoid HTML markup and nested javadoc tag formatting issues (since 1.5).}
+ *
  * @author Grzegorz Kuprianowicz <grzesk075@gmail.com>
+ * @implSpec <b>html bold markup</b>
+ * @implNote {@literal Characters like '<' and '>' should be inside {@literal} to avoid HTML markup and nested
+ * javadoc tag formatting issues (since 1.5).}
+ * @see {@code null} {@link Object}
  */
 public class Java8Tutorial
 {
@@ -41,7 +51,7 @@ public class Java8Tutorial
         {
             /*
             1. Lambda Expressions i wskaźniki do funkcji.
-            W pakiecie java.util.function są zdefiniowane interfejsy funkcyjne (functiona interface),
+            W pakiecie java.util.function są zdefiniowane interfejsy funkcyjne (functional interface),
             pod które można podstawiać wskaźniki do funkcji lub wyrażenia lambda.
             API klas dostarczanych w dystrybucji java 8 zostało rozszerzone o metody przyjmujace jako argumenty wskaźniki do funkcji lub wyrażenia lambda,
             czyli implementacje interfejsów z java.util.function.
@@ -56,7 +66,7 @@ public class Java8Tutorial
             można się posłużyć nowym API
               Collections.sort(personList, (Person p1, Person p2) -> p1.firstName.compareTo(p2.firstName));
             Nowy zapis zawiera głównie logikę biznesową bez zbędnego okładu.
-            Old school notation contains boilerplate code (nadmiarowy kod wymuszony przez język). Użycie lambda sktaca zapis i daje deklaratywną
+            Old school notation contains boilerplate code (nadmiarowy kod wymuszony przez język). Użycie lambda skraca zapis i daje deklaratywną
             możliwość określenia co chcemy osiągnąć (w przeciwieństwie do imperatywnego starego podejścia, gdzie pokazujemy jak chcemy coś osiągnąć).
             Kompilator sam buduje ten boilerplate code i robi bardziej optymalny bytecode niż przy imperatywnej metodzie.
             W lambda można używać zmiennych z enclosing type i nie muszą one być final - wystarczy by były effective final czyli nie były modyfikowane przez lambda.
@@ -72,11 +82,15 @@ public class Java8Tutorial
             Function<Integer,Long> doubleInt = ( Integer i) -> { return  2L * i;}; //( Integer) { return ;}  - te znaki są opcjonalne i w prostych lambda może ich nie być
             Function<Integer,Long> powInt = Java8Tutorial::pow;
             Function<Integer,Long> instancePowInt = new Java8Tutorial()::instancePow;
-            
+
             BiFunction<Integer,Integer,Integer> doSum = (x, y) -> x + y;
-            
+
             UnaryOperator<Integer> increment = i -> ++i;
-            LongSummaryStatistics summaryStatistics = Stream.of( 1, 2, 3).map( increment).filter( i -> i < 3).map( Long::new).collect( Collectors.summarizingLong( i -> i));
+            LongSummaryStatistics summaryStatistics = Stream.of( 1, 2, 3)
+                    .map( increment)
+                    .filter( i -> i < 3)
+                    .map( Long::valueOf)
+                    .collect( Collectors.summarizingLong( i -> i));
             System.out.println( summaryStatistics);
 
             //Predicate - test
@@ -85,10 +99,10 @@ public class Java8Tutorial
             Consumer<String> printStr = s -> System.out.println( s);
             //Supplier - get
             Supplier<Double> randomValueSupplier = () -> Math.random();
-            
+
             Stream.generate( randomValueSupplier).limit( 10).map( String::valueOf).forEach( printStr);
             Stream.of( "A", "B", "C").parallel().forEach( printStr);
-            
+
             IntStream.range( 1, 5).flatMap( i -> IntStream.rangeClosed( 1, i)).forEach( System.out::println);
 
             final Function<int[],Integer> lengthOfArray = i -> i.length;  // int[] extends Object, likewise interface
@@ -116,15 +130,15 @@ public class Java8Tutorial
             Strumienie szeregowe (przykład transformed) są jednowątkowe.
             Strumienie równoległe (przykład avg) mogą być przez maszynę wirtualną wykonywane na wielu rdzeniach wielu procesorów.
             Kolejność obiektów na wyjściu strumienia szeregowego jest taka jak na wejściu, natomiast dla strumienia równoległego może być dowolna.
-            Zamiast pętli for mozna użyć strumienia równoległego zakończonego forEach.
+            Zamiast pętli for można użyć strumienia równoległego zakończonego forEach.
             Pętla for będzie wykonywana synchronicznie przez jeden rdzeń. Przetwarzanie forEach może być wykonywane jednocześnie na wszystkich dostępnych rdzeniach i trwać krócej.
             */
             List<Integer> ints = Arrays.asList( 1, null, 1, 3, 3, 3, 4, 2);
-            
+
             List<Long> transformed = ints.stream().filter( i -> i != null && i <= 3).sorted().distinct().map( doubleInt).collect( Collectors.toList());
-            
+
             transformed.stream().forEach( l -> System.out.println( "Item: " + l));
-            
+
             OptionalDouble avg = transformed.parallelStream().mapToInt( Long::intValue).mapToDouble( Double::new).average();
             if( avg.isPresent())
                 System.out.println( "Avg: " + avg.getAsDouble());
@@ -140,7 +154,7 @@ public class Java8Tutorial
             Zamiast obj.method() pisałoby się obj?.method(), co zwracałoby null zamiast NullPointerException, gdyby obj był null.
             Może doczekamy się wdrożenia tej koncepcji w Java 9, gdyby Optional się nie przyjął.
             */
-            
+
             Optional<Integer> any = Stream.iterate( 1, i -> ++i).limit( 10).findAny();
                                 any.filter( i -> i > 0).ifPresent( System.out::println);
                                 any.flatMap( i -> Optional.of( i + 1)).map( Long::valueOf).ifPresent( i -> {});
@@ -156,16 +170,16 @@ public class Java8Tutorial
             */
             ScriptEngineManager sem = new ScriptEngineManager();
             ScriptEngine nashorn = sem.getEngineByName( "nashorn");
-            
+
             String js = "var obj = { a: 2, b: 3}; var sum = obj.a + obj.b; print( 'sum=' + sum); " +
                         "function getName( name) { return 'myName is ' + name;}; " +
                         "var Integer = Java.type( 'java.lang.Integer'); function getSum() { return new Integer( sum);};";
-            
+
             nashorn.eval( js);
-            
+
             Object name = ( ( Invocable) nashorn).invokeFunction( "getName", "Grzegorz");
             System.out.println( name);
-            
+
             Integer sum = ( Integer) ( ( Invocable) nashorn).invokeFunction( "getSum");
             System.out.println( "Sum is " + sum);
             
@@ -179,25 +193,25 @@ public class Java8Tutorial
             ZonedDateTime dodatkowo obsługuje strefy czasowe w zgodzie z ISO-8601.
             Dodano klasy Period i Duration.
             */
-            
+
             LocalDateTime currentTime = LocalDateTime.now();
             System.out.println("Current DateTime: " + currentTime);
-            
+
             LocalDateTime currentTimeMovedTo2014 = currentTime.withYear( 2014);
             System.out.println("Current DateTime with 2014: " + currentTimeMovedTo2014);
-            
+
             LocalDateTime date3 = LocalDateTime.of( 2016, Month.JANUARY, 31, 22, 10, 1);
             System.out.println("date3: " + date3);
-            
+
             LocalDateTime monthLater = date3.plus(1, ChronoUnit.MONTHS); //!
             System.out.println("1 month later: " + monthLater);
-            
+
             Period period = Period.between( date3.toLocalDate(), monthLater.toLocalDate()); //z dokładnością do dnia
             System.out.println("Period: " + period);
-            
+
             Duration duration = Duration.between( date3, monthLater); //z dokładnością do nanosekund
             System.out.println("Duration: " + duration);
-            
+
             ZoneId currentZone = ZoneId.systemDefault();
             System.out.println("CurrentZone: " + currentZone);
             
@@ -206,10 +220,10 @@ public class Java8Tutorial
             6. Wbudowana obsługa Base64.
             Dotychczas używamy Base64 od apache.
             */
-            
+
             String base64encodedString = Base64.getEncoder().encodeToString("Test Java 8".getBytes("utf-8"));
             System.out.println("Base64 Encoded String (Basic) :" + base64encodedString);
-           
+
             byte[] base64decodedBytes = Base64.getDecoder().decode(base64encodedString);
             System.out.println("Original String: " + new String(base64decodedBytes, "utf-8"));
             
@@ -236,7 +250,7 @@ public class Java8Tutorial
     8. Domyślne implementacje metod w interfejsach oraz metody statyczne w interfejsach.
     Domyślne metody można ale nie trzeba nadpisywać (override) w klasach implementujących interfejs.
     */
-    
+
     public interface ObjectFactory
     {
         default public Object newInstance()
@@ -259,17 +273,17 @@ public class Java8Tutorial
     Trzeba poczekać na okrzepniecie tej koncepcji.
     */
 
-    
+
     public static Long pow( Integer i)
     {
         return 1L * i * i;
     }
-    
+
     public Long instancePow( Integer i)
     {
         return 1L * i * i;
     }
-    
+
     public static String getFirstLineOfFile( File f) {
     	//try-with-resources - opened resource, which implements AutoClosable, are closed after statement, since java7
     	try ( BufferedReader r = new BufferedReader( new InputStreamReader(new FileInputStream( f), Charset.forName( "UTF-8"))))
@@ -280,7 +294,7 @@ public class Java8Tutorial
     	{
 			e.printStackTrace();
 		}
-    	
+
 		return null;
     }
 }
