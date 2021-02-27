@@ -52,10 +52,7 @@ public class Java9to12Tutorial {
         Rt.jar and tools.jar are removed, new folder structure of jdk/sdk is introduced.
         JRE is not installed as a part of jdk/sdk.
         */
-//      java.util.logging.Logger logger;
-//      Error:(52, 18) java: package java.util.logging is not visible
-//      (package java.util.logging is declared in module java.logging, but module pl.grzesk075.sandbox does not read it)
-        
+
         /*
         2. The Java Shell (Read-Eval-Print Loop).
         REPL environment is introduced in JAVA9 as a JEP 222 implementation.
