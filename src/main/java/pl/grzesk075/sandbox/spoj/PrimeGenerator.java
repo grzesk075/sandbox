@@ -4,6 +4,22 @@ import java.util.Arrays;
 import java.util.Scanner;
 import java.util.stream.Stream;
 
+/**
+ * Prints prime numbers.
+ * Input:
+ * 2
+ * 1 10
+ * 3 5
+ *
+ * Output:
+ * 2
+ * 3
+ * 5
+ * 7
+ *
+ * 3
+ * 5
+ */
 public class PrimeGenerator {
 
     private int[][] mn;
