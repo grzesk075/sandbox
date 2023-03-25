@@ -1,38 +1,17 @@
 package pl.grzesk075.sandbox.java;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.nio.charset.Charset;
-import java.time.Duration;
-import java.time.LocalDateTime;
-import java.time.Month;
-import java.time.Period;
-import java.time.ZoneId;
-import java.time.temporal.ChronoUnit;
-import java.util.Arrays;
-import java.util.Base64;
-import java.util.List;
-import java.util.LongSummaryStatistics;
-import java.util.Optional;
-import java.util.OptionalDouble;
-import java.util.function.BiFunction;
-import java.util.function.Consumer;
-import java.util.function.Function;
-import java.util.function.IntFunction;
-import java.util.function.IntUnaryOperator;
-import java.util.function.Predicate;
-import java.util.function.Supplier;
-import java.util.function.UnaryOperator;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-import java.util.stream.Stream;
-
 import javax.script.Invocable;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
+import java.io.*;
+import java.nio.charset.Charset;
+import java.time.*;
+import java.time.temporal.ChronoUnit;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 /**
  * Sandbox for new features of Java 8.
@@ -83,25 +62,31 @@ public class Java8Tutorial
             Function<Integer,Long> powInt = Java8Tutorial::pow;
             Function<Integer,Long> instancePowInt = new Java8Tutorial()::instancePow;
 
-            BiFunction<Integer,Integer,Integer> doSum = (x, y) -> x + y;
+            BiFunction<Integer, Integer, Integer> doSum = (x, y) -> x + y;
 
             UnaryOperator<Integer> increment = i -> ++i;
-            LongSummaryStatistics summaryStatistics = Stream.of( 1, 2, 3)
-                    .map( increment)
-                    .filter( i -> i < 3)
-                    .map( Long::valueOf)
-                    .collect( Collectors.summarizingLong( i -> i));
-            System.out.println( summaryStatistics);
+            LongSummaryStatistics summaryStatistics = Stream.of(1, 2, 3)
+                    .map(increment)
+                    .filter(i -> i < 3)
+                    .map(Long::valueOf)
+                    .collect(Collectors.summarizingLong(i -> i));
+            System.out.println(summaryStatistics);
+
+            Map<Long, List<Long>> groupes = Stream.of(1, 2, 3)
+                    .map(increment)
+                    .filter(i -> i < 3)
+                    .map(Long::valueOf)
+                    .collect(Collectors.groupingBy(l -> l % 10));
 
             //Predicate - test
             Predicate<String> isNullStr = s -> s == null;
             //Consumer - accept
-            Consumer<String> printStr = s -> System.out.println( s);
+            Consumer<String> printStr = s -> System.out.println(s);
             //Supplier - get
             Supplier<Double> randomValueSupplier = () -> Math.random();
 
-            Stream.generate( randomValueSupplier).limit( 10).map( String::valueOf).forEach( printStr);
-            Stream.of( "A", "B", "C").parallel().forEach( printStr);
+            Stream.generate(randomValueSupplier).limit(10).map(String::valueOf).forEach(printStr);
+            Stream.of("A", "B", "C").parallel().forEach(printStr);
 
             IntStream.range( 1, 5).flatMap( i -> IntStream.rangeClosed( 1, i)).forEach( System.out::println);
 
